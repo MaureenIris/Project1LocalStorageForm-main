@@ -29,12 +29,12 @@ function newTweet(e){
     removeBtn.textContent = 'X';
 
 
-    //Createan <li> element
+    //Create an <li> element
     const li = document.createElement('li');
     li.textContent = tweet;
-    tweetList.appendChild(li);
+    
 
-    //Add and remove button to each tweet
+    //Add the remove button to each tweet
     li.appendChild(removeBtn);
 
     //Add to the list
@@ -42,6 +42,11 @@ function newTweet(e){
 
     //Add to local storage
     addTweetLocalStorage(tweet);
+
+    //Print the alert
+    alert('Tweet Added');
+
+    this.reset();
 }
 
 //Removes the tweets from the DOM
@@ -112,9 +117,12 @@ function removeTweetLocalStorage(tweet){
     const tweetDelete = tweet.substring(0, tweet.length -1);
 
     //Loop through the tweets and remove the tweet that's equal
-    tweets.forEach(function(tweetLS){
+    tweets.forEach(function(tweetLS, index){
         if(tweetDelete === tweetLS){
-            console.log('Yes');
+            tweets.splice(index, 1);
         }
     });
+
+    //Save the data
+    localStorage.setItem('tweets', JSON.stringify(tweets));
 }
